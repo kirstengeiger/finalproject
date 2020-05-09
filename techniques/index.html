@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Prototype techniques</title>
+	<link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="https://unpkg.com/intersection-observer"></script>
+	<script src="https://unpkg.com/scrollama"></script>
+</head>
+<style type="text/css">
+	body, html {
+		top:0;
+		left:0;
+		margin:0;
+		font-family:'Helvetica Neue', sans-serif;
+	}
+	nav	{
+		background-color:#5A6CCC;
+		position:fixed;
+		width:100%;
+		display:flex;
+		justify-content: center;
+		align-items:center;
+		font-family:'Helvetica Neue', sans-serif;
+	}
+	.title {
+		height:50vh;
+		color:#5A6CCC;
+		background-color:white;
+/*		background-image:url('https://i.pinimg.com/originals/7f/43/1c/7f431c9e6991b1a83d79e359dc09c99d.gif');*/
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-position: left top;
+		background-size: auto 100%;
+	}
+	.title h1 {
+		font-size:5em;
+	}
+	.title h2 {
+		font-size:1em;
+		font-weight:400;
+	}
+	.header {
+		text-align:center;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		border:0.5em #3347CC;
+		padding:5% 0%;
+		animation: fadeIn 0.5s ease-in-out;
+	}
+	.header h1{
+		font-family:'Helvetica Neue', sans-serif;
+		font-weight:800;
+		margin:0;
+	}
+	.header h2 {
+		margin:0;
+	}
+	.sticky {
+		float:right;
+		top:25%;
+		position:sticky;
+		width:50%;
+		display:inline-flex;
+					background-color:white;
+	}
+	.leftside{
+		background-color:white;
+		color:#5A6CCC;
+		width: 30%;
+    	padding: 5% 10% 5% 5%;
+	}
+	.progressive{
+		width:100%;
+		display:block;
+		margin-bottom:100%!important;
+	}
+	.end {
+		margin-bottom:5%!important;
+	}
+	#counter {
+		width:100%;
+		font-size:10em;
+		text-align:center;
+		margin:0;
+		padding:0%;
+		line-height:1em;
+		font-weight: 800;
+    	letter-spacing: -0.05em;
+	}
+	#counter h2{
+		text-align:center;
+	}
+	.text {
+		margin:5%;
+		line-height:2em;
+		opacity:0;
+		margin-top:10%;
+		transition:0.5s ease-in-out;
+	}
+	.text h1 {
+		font-size:4em;
+		letter-spacing:-0.05em;
+		line-height:1em;
+		font-weight:900;
+		width:60%;
+	}
+	.text h2 {
+		font-weight:400;
+		font-size:1em;
+		font-style:italic;
+	}
+	.sticky h1 {
+		width:100%;
+		font-size:3em;
+	}
+	.sticky h2 {
+		font-size:0.8em;
+		text-transform:uppercase;
+		letter-spacing:0.1em;
+	}
+	.center_aligner {
+		overflow:none;
+		width:100%;
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		margin:2% 0%;
+	}
+	iframe {
+		width:1600px;
+		height:450px;
+	}
+	.tableauPlaceholder{
+		width:50%;
+	}
+	img{
+		text-align:center;
+		margin:0%;
+		display:inline-block;
+		border:0em;
+	}
+	.caption {
+		font-size:0.8em;
+		color:#666666;
+	}
+	.small {
+		width:30%;
+	}
+	.medium {
+		width:50%;
+	}
+	.large {
+		width:80%;
+		display:block;
+	}
+	@keyframes fadeIn {
+		0%{
+			opacity:0;
+		}
+		100%{
+			opacity:1;
+		}
+	}
+	@media screen and (max-width:767px){
+		.sticky {
+	/*		bottom:0;*/
+			width:50%;
+			float:none;
+			margin:auto;
+			display:flex;
+			line-height:2em;
+		}
+		.sticky h1 {
+			font-size:2em;
+			line-height:2em;
+		}
+		.sticky h2 {
+			font-size:0.5em;
+		}
+		#counter {
+			font-size:5em;
+		}
+		.leftside {
+			width: 85%;
+    		padding: 5% 10% 5% 5%;
+		}
+		.small {
+			width:80%;
+		}
+		.title {
+			height:80vh;
+		}
+		.text h1 {
+			font-size:2.5em;
+			width:80%;
+		}
+		.text {
+			margin:10% 5%;
+		}
+		iframe {
+			height:300px;
+		}
+
+	}
+</style>
+<body>
+
+<!-- nav -->
+<nav>
+	<h3>The Rise of Foreign Artists in the Music Industry</h3>
+</nav>
+
+<!-- text -->
+<div class='header title step'>
+	<div class='aligner'>
+		<h1>The Rise of Foreign Artists</h1>
+		<h2>A BRIEF LOOK INTO HOW FOREIGN ARTISTS IN THE LAST DECADE HAVE BEGUN TO TAKE OVER THE MUSIC INDUSTRY</h2>	
+	</div>
+</div>
+
+<div class='text'>
+	<h1>In 2019, almost half of the top ten most popular songs on Spotify were created by non American artists.</h1>
+	Previously, America has often dominated most of the entertainment industry with music being no exception. But now with our world becoming much more connected, there seems to be a shift. Through social media and other digital platforms, artists are now able to reach audiences they could never have even imagined of reaching. And for those listening, it’s never been easier to share what they're listening to. </div>
+
+	<div class="text">
+	Over the last decade there has been a significant rise in foreign artists appearing on the yearly list of most popular songs curated by Spotify. The graph below visualises the popularity of the top ten most popular songs on Spotify from the last decade. The shift in green represents those songs made by non American artists, highlighting the steady increase of foreign artists represented throughout the years. Foreign artists actually made up the majority of the songs featured in 2015 with 80% of the featured records being written by non Americans. 
+</div>
+
+<!-- image 1 -->
+<div class='center_aligner'>
+	<img class='large' src="images/barchartgif.gif"> 	
+</div>
+
+<div class='center_aligner'>
+	<div class='caption'>Popularity of top 10 most popular songs on Spotify per year from 2010 to 2019</div>	
+</div>
+
+<div class='text'>
+	The representation of non American artists globally is a phenomenon that has only recently begun, at least, considering how long music has been around for. Because it hasn't always been this way, there were certainly individuals who paved the way for the foreign artists that followed them. That could be from the music video to Justin Bieber’s single ‘Baby’ being the most disliked video at the time or when Rihanna released her debut single ‘Pon De Replay’ propelling her to international fame. Hover over the small green dots to see some of the moments when foreign artist’s have stood out!
+</div>
+
+<!-- interactive embed, adjust the width and height as necessary, copy lines 155 to 157 to create a new interactive embed --> 
+<div class='center_aligner'>
+	<iframe src="interactive.html" frameBorder=0 scrolling=no></iframe>
+</div>
+
+<!-- caption for image 2 -->
+<div class='center_aligner'>
+	<div class='caption'>Interactive line graph of top 10 most popular songs on Spotify with significant moments for Foreign Artist's highlighted with green dots</div>	
+</div>
+
+<div class='text'>
+	<h1>Of the 58 different artists featured on this list, 23 of them were not from America.</h1>
+</div>
+
+<div class="center_aligner ">
+<img class='large' src="images/FAmap.jpg">
+</div>
+
+<div class='center_aligner'>
+	<div class='caption'>Map showing the nationality of the foreign artists featured</div>	
+</div>
+
+<div class="text">
+These artists come from all different parts of the world. Their origins range from as familiar to us as the pop artists of Canada to the DJ power houses of Sweden. It seems that the English artists have people swooning as they made up almost half of the foreign artists featured. The visualiser below showcases each of the artists featured on the list with the main genre their music falls under. 
+</div>
+
+<!--image 3 FA icon-->
+<div class="center_aligner">
+	<img class='large' src="images/FAicon.gif">
+</div>
+
+<!-- caption for image 3 -->
+<div class='center_aligner'>
+	<div class='caption'>Nationality of the foreign artists featured and their music genre</div>	
+</div>
+
+<div class='text'>
+	<h1>Dance pop was the most frequent genre of the records featured with Canadian Pop and Pop following behind in order.</h1>  
+</div>
+
+<!--image 5 of genre pie chart with text on the side-->
+<div class="center_aligner ">
+<img class='large' src="images/piechart.png">
+</div>
+
+<div class='center_aligner'>
+	<div class='caption'>Genre of songs featured by foreign artists</div>	
+</div>
+
+<div class="text">
+The popularity of pop, and the genres branching from it, seems to have really kicked off in 2015. More than half of the foreign artist’s songs that year featured that year either fell under pop, dance pop or Canadian pop- the first time that had happened in recent history. Last year all of the songs by foreign artists fell under the pop category except for one which was classified as Canadian pop. </div>
+
+<div class="text">
+These pop songs featured in 2019 were also the most popular out of all the songs featured in the last decade. 
+</div>
+
+<!--image 6 of genre bar chart-->
+<div class="center_aligner ">
+<img class='large' src="images/genrebarchart.jpg">
+</div>
+
+<div class='center_aligner'>
+	<div class='caption'>The popularity and genre of foreign artist's songs by year</div>	
+</div>
+
+<!--image 7 of genre bar chart popularity-->
+<div class="center_aligner ">
+<img class='large' src="images/genrepopularity.png">
+</div>
+
+<div class='center_aligner'>
+	<div class='caption'>Genre of foreign artists songs featured arranged by most to least popular</div>	
+</div>
+
+
+<div class='text'>
+	<h1>However, there are still some things to consider-</h1>
+
+<!-- counter -->
+<div class='header sticky step' id='dynamic_sticky1'>
+</div>
+
+
+<div class='leftside'>
+
+	<div class='text progressive'>
+	<h1>Lack of female representation in the industry</h1> 
+	</div>
+
+	<div class='text progressive'>
+	<h1>Non-English songs weren't featured</h1> 
+	</div>
+
+	<div class='text progressive'>
+	<h1>Predominantly white music industry</h1> 
+	</div>
+
+</div>
+
+
+<div class='text'>
+	<h1>Takeaways</h1>
+	As of now, these artists do largely come from the Western world. However, with artists from other parts of the world entering the global stage such as Korea’s super group BTS or latino stars Bad Bunny and J Balvin topping the charts, it’s only a matter of time till they’re featured at the end of year round up. There are still some biases in the music industry, but each of us can take small steps to make it a much more inclusive, free and above all creative space where we can all just enjoy the music.
+</div>
+
+
+
+</body>
+<script type="text/javascript">
+
+// instantiate the scrollama
+const scroller = scrollama();
+const scroller2 = scrollama();
+
+scroller
+  .setup({
+    step: ".text",
+    offset: 0.9,
+  })
+  .onStepEnter(response => {
+    // { element, index, direction }
+    el=response.element;
+    el.style.opacity=1;
+    el.style.marginTop='5%';    
+  })
+  .onStepExit(response => {
+    // { element, index, direction }  
+    el=response.element;
+  })
+  ;
+ // setup resize event
+window.addEventListener("resize", scroller.resize);
+
+scroller2
+  .setup({
+    step: ".progressive",
+    offset: 0.6,
+  })
+  .onStepEnter(response => {
+    // { element, index, direction }
+    el=response.element;
+    el.style.opacity=1;
+    if(response.index==0 || 1 || 2){
+    	stick('dynamic_sticky1')
+    	response.direction=='down'
+    	if(response.index==0){
+    		count(0,17,1,'ONLY','of the foreign artists featured are female','dynamic_sticky1')
+    	} else if (response.index==1){
+    		count(0,20,1,'ONLY','of people globally speak English as their native language','dynamic_sticky1')
+    	} else if (response.index==2){
+    		count(0,21,1,'ONLY','of the foreign artists featured are people of colour','dynamic_sticky1')
+    	}
+    }
+  })
+  .onStepExit(response => {
+    // { element, index, direction }  
+    el=response.element;
+    console.log(response.index)
+    if(response.index==2){
+    	unstick('dynamic_sticky1')
+    }
+    el.style.opacity=0;
+  })
+  ;
+ // setup resize event
+window.addEventListener("resize", scroller2.resize);
+
+function count(number1, number2, step, title, label, location_id, suffix='%'){
+	target = document.querySelector('#'+location_id)
+	console.log(target)
+	let text=number1;
+
+	setInterval(function(){
+		if(text!=number2){
+			num = text+step
+			if(num % 1 == 0){
+				text = num
+			} else {
+				text = parseFloat(num.toFixed(2))
+			}
+			target.innerHTML="<div class='aligner'><h1>"+title+"</h1><div id='counter'>"+text+suffix+"</div><h2>"+label+"</h2></div>"
+		}
+	}, 30);
+}
+
+function stick(location_id){
+	target = document.querySelector('#'+location_id)
+	target.style.position="sticky"
+}
+
+function unstick(location_id){
+	target = document.querySelector('#'+location_id)
+	target.style.position="relative"
+}
+
+</script>
+
+</html>
